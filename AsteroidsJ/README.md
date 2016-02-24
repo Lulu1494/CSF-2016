@@ -1,7 +1,7 @@
 # AsteroidsJ
 Asteroids game made in Java using StdDraw
 
-![](https://github.com/Lulu1494/AsteroidsJ/raw/master/2016-02-24_00-19-17.gif)
+![](https://github.com/Lulu1494/CSF-2016/raw/master/AsteroidsJ/2016-02-24_00-19-17.gif)
 
 ### Controls
 
