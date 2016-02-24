@@ -5,7 +5,7 @@ public class Shield extends Item {
     }
     
     public void pickedUp() {
-        Game.player.invincibility(3000);
+        Game.player.invincibility(5000);
         destroy();
     }
 }

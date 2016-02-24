@@ -1,9 +1,25 @@
-import java.util.HashSet;
+import java.util.*;
 
 public abstract class Entity {
     public static HashSet<Entity> all = new HashSet<Entity>();
     public static HashSet<Entity> newEntities = new HashSet<Entity>();
     public static HashSet<Entity> removedEntities = new HashSet<Entity>();
+    
+    public static TreeMap<Double, HashSet<Entity>> layers = new TreeMap<Double, HashSet<Entity>>();
+    
+    public double layer;
+    
+    public void setLayer(double newLayer) {
+        if(layers.containsKey(layer)) {
+            layers.get(layer).remove(this);
+            if(layers.get(layer).isEmpty()) {
+                layers.remove(layer);
+            }
+        }
+        layer = newLayer;
+        if(!layers.containsKey(layer)) layers.put(layer, new HashSet<Entity>());
+        layers.get(layer).add(this);
+    }
     
     public static void updateEntities() {
         if(!newEntities.isEmpty()) {
@@ -20,12 +36,21 @@ public abstract class Entity {
         }
     }
     
-    public static void drawEntities() { for(Entity e : all) if(e.enabled && e.visible) e.draw(); }
+    public static void drawEntities() { 
+        for(HashSet<Entity> toDraw : layers.values()) {
+            for(Entity e : toDraw) {
+                if(e.enabled && e.visible) {
+                    e.draw(); 
+                }
+            }
+        }
+    }
     
     public static void resetEntities() {
         all.clear();
         newEntities.clear();
         removedEntities.clear();
+        layers.clear();
     }
                                                             
     public boolean enabled = true;
@@ -34,7 +59,11 @@ public abstract class Entity {
     // by default, everything is a 16x16 square
     public Rectangle getRectangle() { return new Rectangle(x - 8, y - 8, x + 8, y + 8); }
     
-    public Entity() { newEntities.add(this); }
+    public Entity() { 
+        newEntities.add(this); 
+        setLayer(0);
+    }
+    
     public void destroy() { enabled = false; }
     
     public double x, y, vx, vy;

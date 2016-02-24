@@ -6,6 +6,11 @@ public class Tree extends Entity {
         icon = Game.prob(50) ? "rsc/tree.png" : "rsc/tree2.png";
     }
     
+    public void moveTo(double newX, double newY) {
+        super.moveTo(newX, newY);
+        setLayer(1 - newY / Game.HEIGHT);
+    }
+    
     public void update() {
         for(Entity entity : Entity.all) {
             if(entity instanceof LivingEntity) {

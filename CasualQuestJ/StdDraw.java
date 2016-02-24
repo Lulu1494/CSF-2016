@@ -84,6 +84,8 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
     private static int width  = DEFAULT_SIZE;
     private static int height = DEFAULT_SIZE;
     
+    public static int zoom = 3;
+    
     // default pen radius
     private static final double DEFAULT_PEN_RADIUS = 0.002;
     
@@ -94,7 +96,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
     private static boolean defer = false;
     
     // boundary of drawing canvas, 5% border
-    private static final double BORDER = 0.05;
+    private static final double BORDER = 0; // 0.05;
     private static final double DEFAULT_XMIN = 0.0;
     private static final double DEFAULT_XMAX = 1.0;
     private static final double DEFAULT_YMIN = 0.0;
@@ -156,7 +158,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         if (frame != null) frame.setVisible(false);
         frame = new JFrame();
         offscreenImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-        onscreenImage  = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        onscreenImage  = new BufferedImage(width*zoom, height*zoom, BufferedImage.TYPE_INT_ARGB);
         offscreen = offscreenImage.createGraphics();
         onscreen  = onscreenImage.createGraphics();
         setXscale();
@@ -170,7 +172,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         
         // add antialiasing
         RenderingHints hints = new RenderingHints(RenderingHints.KEY_ANTIALIASING,
-                                                  RenderingHints.VALUE_ANTIALIAS_ON);
+                                                  RenderingHints.VALUE_ANTIALIAS_OFF);
         hints.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
         offscreen.addRenderingHints(hints);
         
@@ -707,7 +709,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
     // draw onscreen if defer is false
     private static void draw() {
         if (defer) return;
-        onscreen.drawImage(offscreenImage, 0, 0, null);
+        onscreen.drawImage(offscreenImage, 0, 0, width*zoom, height*zoom, null);
         frame.repaint();
     }
     

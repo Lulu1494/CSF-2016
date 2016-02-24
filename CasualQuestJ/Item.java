@@ -6,12 +6,26 @@ public abstract class Item extends Entity {
     public Item() {
         super();
         startTime = Game.time;
+        setLayer(1);
     }
     
     public void update() { 
-        if(getRectangle().intersects(Game.player.getRectangle())) {
+        Rectangle rect = getRectangle();
+        if(rect.intersects(Game.player.getRectangle())) {
             pickedUp();
         }
+        
+        // The original Casual Quest lets you pick up items 
+        // by hitting them with projectiles such as fireballs
+//        for(Entity e : Entity.all) if(e instanceof Projectile) {
+//            if(rect.intersects(e.getRectangle())) {
+//                Projectile p = (Projectile) e;
+//                if(p.owner != null && p.owner.equals(Game.player)) {
+//                    pickedUp();
+//                }
+//            }
+//        }
+        
         if(Game.time - startTime >= duration) {
             destroy();
         }

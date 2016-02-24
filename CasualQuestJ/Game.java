@@ -24,7 +24,7 @@ public class Game {
         NORTHEAST = NORTH|EAST, NORTHWEST = NORTH|WEST, 
         SOUTHEAST = SOUTH|EAST, SOUTHWEST = SOUTH|WEST;
     
-    public static final int WIDTH = 320, HEIGHT = 320;
+    public static final int WIDTH = 240, HEIGHT = 240;
     public static final double TICKS_PER_SECOND = 60;
     public static final double FRAMES_PER_SECOND = 60;
     public static final double PER_TICK = 1 / TICKS_PER_SECOND;
@@ -50,27 +50,86 @@ public class Game {
     private static long lastUpdateTime;
     private static long lastDrawTime;
     
+    public static void startGame() {
+        setupWindow(WIDTH, HEIGHT);
+        showTitleScreen();
+        Entity.resetEntities();
+        populateMap();
+        initializePlayer();
+        time = 0;
+        running = true;
+        long nextRandomEnemyTime = 0;
+        long startTime = System.currentTimeMillis();
+        while(running) {
+            if(!paused) {
+                if(Enemy.enemyCount < MAX_ENEMY_COUNT && time > nextRandomEnemyTime) {
+                    nextRandomEnemyTime = time + ENEMY_SPAWN_DELAY;
+                    spawnRandomEnemy();
+                }
+                
+                if(time - lastUpdateTime >= 1000 / TICKS_PER_SECOND) {
+                    lastUpdateTime = time;
+                    Entity.updateEntities();
+                }
+                
+                if(time - lastDrawTime >= 1000 / FRAMES_PER_SECOND) {
+                    lastDrawTime = time;
+                    StdDraw.clear(backgroundColor);
+                    Entity.drawEntities();
+                
+                    StdDraw.setFont(new Font("Arial", Font.BOLD, 12));
+                    StdDraw.setPenColor(Color.WHITE);
+                    StdDraw.textLeft(0, 6, "Gold: " + GoldCoin.collected);
+//                    StdDraw.textLeft(0, 20, "Enemies: " + MAX_ENEMY_COUNT);
+                }
+            }
+            
+            if(!StdDraw.isKeyPressed(KEY_PAUSE)) pausing = false;
+            else if(!pausing) {
+                pausing = true;
+                if(paused) unpause();
+                else pause();
+            }
+            
+            if(StdDraw.isKeyPressed(KEY_RESET)) {
+                running = false;
+                while(StdDraw.isKeyPressed(KEY_RESET));
+            }
+            
+            time = System.currentTimeMillis() - startTime;
+            MAX_ENEMY_COUNT = (int) (Math.pow(time / 3000.0, 1.1));
+            StdDraw.show(1);
+        }
+        startGame();
+    }
+    
     public static void showTitleScreen() {
-        setupWindow(240, 240);
         StdDraw.picture(120, 120, "rsc/title.png");
         StdDraw.show();
         while(!StdDraw.isKeyPressed(' '));
     }
     
     public static void populateMap() {
-        for(int i = 0; i < 15; i++) {
-            Tree tree = new Tree();
-            tree.moveTo(WIDTH*rand.nextDouble(), HEIGHT*rand.nextDouble());
-            
-            int n = rand.nextInt(5);
-            for(int j = 0; j < n; j++) {
-                Tree t = new Tree();
-                double dist = randn(16, 32);
-                double angle = randn(0, 360);
-                t.moveTo(tree.x + dist * Math.cos(angle),
-                         tree.y + dist * Math.sin(angle));
+        int maxX = WIDTH / 16 - 2, maxY = HEIGHT / 16 - 2;
+        for(int x = 2; x < maxX; x += 2) for(int y = 2; y < maxY; y += 2) {
+            if(prob(75)) {
+                Tree tree = new Tree();
+                tree.moveTo(x*16 + randn(0, 16), y*16 + randn(0, 16));
             }
         }
+//        for(int i = 0; i < 15; i++) {
+//            Tree tree = new Tree();
+//            tree.moveTo(randn(16, WIDTH-16), randn(16, HEIGHT-16));
+//            
+//            int n = rand.nextInt(5);
+//            for(int j = 0; j < n; j++) {
+//                Tree t = new Tree();
+//                double dist = randn(16, 48);
+//                double angle = randn(0, 360);
+//                t.moveTo(tree.x + dist * Math.cos(angle),
+//                         tree.y + dist * Math.sin(angle));
+//            }
+//        }
     }
     
     public static Enemy spawnEnemy(Enemy enemy) {
@@ -110,65 +169,20 @@ public class Game {
     
     public static void unpause() { paused = false; }
     
-    public static void startGame() {
-        showTitleScreen();
-        Entity.resetEntities();
-        populateMap();
-        initializePlayer();
-        setupWindow(WIDTH, HEIGHT);
-        time = 0;
-        running = true;
-        long nextRandomEnemyTime = 0;
-        long startTime = System.currentTimeMillis();
-        while(running) {
-            if(!paused) {
-                if(Enemy.enemyCount < MAX_ENEMY_COUNT && time > nextRandomEnemyTime) {
-                    nextRandomEnemyTime = time + ENEMY_SPAWN_DELAY;
-                    spawnRandomEnemy();
-                }
-                
-                if(time - lastUpdateTime >= 1000 / TICKS_PER_SECOND) {
-                    lastUpdateTime = time;
-                    Entity.updateEntities();
-                }
-                
-                if(time - lastDrawTime >= 1000 / FRAMES_PER_SECOND) {
-                    lastDrawTime = time;
-                    StdDraw.clear(backgroundColor);
-                    Entity.drawEntities();
-                }
-                
-                StdDraw.setFont(new Font("Arial", Font.BOLD, 12));
-                StdDraw.setPenColor(Color.WHITE);
-                StdDraw.textLeft(0, 6, "Gold: " + GoldCoin.collected);
-                StdDraw.textLeft(0, 20, "Enemies: " + MAX_ENEMY_COUNT);
-            }
-            
-            if(!StdDraw.isKeyPressed(KEY_PAUSE)) pausing = false;
-            else if(!pausing) {
-                pausing = true;
-                if(paused) unpause();
-                else pause();
-            }
-            
-            if(StdDraw.isKeyPressed(KEY_RESET)) running = false;
-            
-            time = System.currentTimeMillis() - startTime;
-            MAX_ENEMY_COUNT = (int) (Math.pow(time / 3000.0, 1.1));
-            StdDraw.show(1);
-        }
-        startGame();
-    }
-    
     public static boolean prob(double chance) { return rand.nextDouble() * 100 <= chance; }
     public static double lerp(double a, double b, double t) { return a * (1 - t) + b * t; }
     public static double randn(double low, double high) { return lerp(low, high, rand.nextDouble()); }
     public static double clamp(double n, double min, double max) { return Math.min(Math.max(n, min), max); }
     
     public static void setupWindow(int width, int height) {
+        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        StdDraw.zoom = Math.min(screenSize.width, screenSize.height) / Math.max(width, height);
         StdDraw.setCanvasSize(width, height);
-        StdDraw.setXscale(width  * .05 / 1.1, width  * 1.05 / 1.1);
-        StdDraw.setYscale(height * .05 / 1.1, height * 1.05 / 1.1);
+        StdDraw.setXscale(0, width);
+        StdDraw.setYscale(0, height);
+        
+//        StdDraw.setXscale(width  * .05 / 1.1, width  * 1.05 / 1.1);
+//        StdDraw.setYscale(height * .05 / 1.1, height * 1.05 / 1.1);
     }
     
     private static final double[][] arrowPolygon = {

@@ -6,6 +6,7 @@ public class Bird extends Enemy {
         moveSpeed = 48;
         vx = moveSpeed * (Game.prob(50) ? -1 : 1);
         vy = moveSpeed * (Game.prob(50) ? -1 : 1);
+        setLayer(3);
     }
     
     public void update() {

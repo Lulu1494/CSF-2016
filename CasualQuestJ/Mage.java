@@ -10,74 +10,51 @@ public class Mage extends Player {
     void attack() {
         if(spendAura(1)) {
             super.attack();
-            Fireball f = new Fireball();
-            double angle = Game.dirToAngle(dir);
-            f.moveTo(x + 11*Math.cos(angle), y + 11*Math.sin(angle));
-            f.setDir(dir);
+            launchProjectile(new Fireball());
         }
     }
     
     void attackUpdate() {
         super.attackUpdate();
-        if(attackFrame == 1) {
-            
-        } else if(attackFrame >= 10) {
-            attackEnd();
-        }
+        if(attackFrame >= 10) attackEnd();
     }
     
     void skill1() {
         if(spendAura(2)) {
             super.attack();
-            BigFireball f = new BigFireball();
-            double angle = Game.dirToAngle(dir);
-            f.moveTo(x + 11*Math.cos(angle), y + 11*Math.sin(angle));
-            f.setDir(dir);
+            launchProjectile(new BigFireball());
         }
     }
     
-    public class BigFireball extends Entity {
-        int lifetime = 5000;
-        double moveSpeed = 128;
-        double angle = 0;
-        double damage = 2;
-        String icon = "bigFire";
-        
-        public void setDir(int dir) {
-            angle = Game.dirToAngle(dir);
-            vx = moveSpeed * Math.cos(angle);
-            vy = moveSpeed * Math.sin(angle);
-        }
-        
-        public void draw() { 
-            String fullIcon = "rsc/weapons/"+icon+"1.png";
-            if(Game.time / 200 % 2 == 0) fullIcon = "rsc/weapons/"+icon+"2.png";
-            StdDraw.picture(x, y, fullIcon, Math.toDegrees(angle)); 
-        }
-        
-        public void update() {
-            super.update();
-            Rectangle rect = getRectangle();
-            for(Entity entity : Entity.all) {
-                if(entity instanceof Enemy) {
-                    if(rect.intersects(entity.getRectangle())) {
-                        Enemy enemy = (Enemy) entity;
-                        enemy.takeDamage(damage);
-                        enemy.knockback(this, 16);
-                        destroy();
-                        break;
-                    }
-                }
-            }
-            if(--lifetime <= 0) destroy();
+    Projectile launchProjectile(Projectile p) {
+        p.owner = this;
+        double angle = Game.dirToAngle(dir);
+        p.moveTo(x + 11*Math.cos(angle), y + 11*Math.sin(angle));
+        p.setDir(dir);
+        return p;
+    }
+    
+    public class BigFireball extends Projectile {
+        void defaultStats() {
+            icon = "bigFire";
+            moveSpeed = 128;
+            lifetime = 1800;
+            damage = 2;
+            setLayer(4);
         }
     }
     
-    public class Fireball extends BigFireball {
-        public Fireball() { super(); 
-            damage = 1; 
+    public class Fireball extends Projectile {
+        void defaultStats() {
             icon = "fireball";
+            moveSpeed = 128;
+            lifetime = 700;
+            damage = 1; 
+            setLayer(4);
         }
-        public Rectangle getRectangle() { return new Rectangle(x-3, y-3, x+3, y+3); }
+        
+        public Rectangle getRectangle() { 
+            return new Rectangle(x-3, y-3, x+3, y+3); 
+        }
     }
 }

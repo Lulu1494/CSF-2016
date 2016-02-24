@@ -14,6 +14,7 @@ public abstract class LivingEntity extends Entity {
     
     public LivingEntity() {
         super();
+        setLayer(2);
         defaultStats();
     }
     

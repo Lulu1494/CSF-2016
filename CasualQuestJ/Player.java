@@ -55,7 +55,7 @@ public abstract class Player extends LivingEntity {
     }
     
     public void draw() {
-        if(isInvincible() && Game.time / 10 % 2 == 0) return;
+        if(isInvincible() && Game.time / 50 % 2 == 0) return;
         
         String fullIcon;
         if(attacking) {
@@ -68,8 +68,6 @@ public abstract class Player extends LivingEntity {
                 + ".png";
         }
         StdDraw.picture(x, y, fullIcon);
-        
-//        StdDraw.textLeft(0, 32, "" + Game.time + "   " + getAura());
         super.draw();
     }
     
@@ -130,6 +128,7 @@ public abstract class Player extends LivingEntity {
     void changeClass(Player newPlayer) {
         Game.player = newPlayer;
         Game.player.moveTo(x, y);
+        Game.player.dir = dir;
         destroy();
     }
     

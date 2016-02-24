@@ -20,7 +20,10 @@ public class Adventurer extends Player {
         double angle = Game.dirToAngle(dir);
         double cos = Math.cos(angle);
         double sin = Math.sin(angle);
-        StdDraw.picture(x + 16 * cos, y + 16 * sin, fullSwordIcon, Math.toDegrees(angle));
+        StdDraw.picture(Math.round(x + 16 * cos), 
+                        Math.round(y + 16 * sin) + (dir == Game.WEST ? -1 : 0), 
+                        fullSwordIcon, 
+                        Math.toDegrees(angle));
     }
     
     void attackUpdate() {
@@ -57,8 +60,14 @@ public class Adventurer extends Player {
                 if(entity instanceof Enemy) {
                     if(entity.getRectangle().containsPoint(tipX, tipY)) {
                         Enemy enemy = (Enemy) entity;
-                        enemy.takeDamage(attackDamage);
                         enemy.knockback(this, 16);
+                        enemy.takeDamage(attackDamage);
+                    }
+                }
+                else if(entity instanceof Item) {
+                    if(entity.getRectangle().containsPoint(tipX, tipY)) {
+                        Item item = (Item) entity;
+                        item.pickedUp();
                     }
                 }
             }
