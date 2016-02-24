@@ -1,7 +1,7 @@
 # ShooterJ
 Topdown shooter made in Java using StdDraw
 
-![](https://github.com/Lulu1494/ShooterJ/raw/master/2016-02-24_00-25-54.gif)
+![](https://github.com/Lulu1494/CSF-2016/raw/master/ShooterJ/2016-02-24_00-25-54.gif)
 
 ### Controls
 * WASD to move
