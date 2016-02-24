@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<drjava version="drjava-20140826-r5761">
+  <project autorefresh="false" build="" main="Game" manifest="" root="" work="">
+    <createjar file="CasualQuest.jar" flags="12"/>
+    <source>
+      <file active="true" name="StdDraw.java" package="" timestamp="24-Feb-2016 12:52:31">
+        <select from="18729" to="18729"/>
+        <scroll column="7534" row="0"/>
+      </file>
+      <file name="StatBar.java" package="" timestamp="24-Feb-2016 10:06:52">
+        <select from="18729" to="18729"/>
+        <scroll column="7534" row="0"/>
+      </file>
+      <file name="Rectangle.java" package="" timestamp="24-Feb-2016 10:06:52">
+        <select from="18729" to="18729"/>
+        <scroll column="7534" row="0"/>
+      </file>
+      <file name="Knight.java" package="" timestamp="24-Feb-2016 10:06:52">
+        <select from="18729" to="18729"/>
+        <scroll column="7534" row="0"/>
+      </file>
+      <file name="GoldCoin.java" package="" timestamp="24-Feb-2016 10:06:52">
+        <select from="18729" to="18729"/>
+        <scroll column="7534" row="0"/>
+      </file>
+      <file name="Tree.java" package="" timestamp="24-Feb-2016 10:06:52">
+        <select from="18729" to="18729"/>
+        <scroll column="7534" row="0"/>
+      </file>
+      <file name="LivingEntity.java" package="" timestamp="24-Feb-2016 10:06:52">
+        <select from="18729" to="18729"/>
+        <scroll column="7534" row="0"/>
+      </file>
+      <file name="Plum.java" package="" timestamp="24-Feb-2016 10:06:52">
+        <select from="18729" to="18729"/>
+        <scroll column="7534" row="0"/>
+      </file>
+      <file name="Cherry.java" package="" timestamp="24-Feb-2016 10:06:52">
+        <select from="18729" to="18729"/>
+        <scroll column="7534" row="0"/>
+      </file>
+      <file name="Bottle.java" package="" timestamp="24-Feb-2016 10:06:52">
+        <select from="18729" to="18729"/>
+        <scroll column="7534" row="0"/>
+      </file>
+      <file name="Shield.java" package="" timestamp="24-Feb-2016 10:06:52">
+        <select from="18729" to="18729"/>
+        <scroll column="7534" row="0"/>
+      </file>
+      <file name="Entity.java" package="" timestamp="24-Feb-2016 11:27:26">
+        <select from="18729" to="18729"/>
+        <scroll column="7534" row="0"/>
+      </file>
+      <file name="Bird.java" package="" timestamp="24-Feb-2016 11:42:22">
+        <select from="18729" to="18729"/>
+        <scroll column="7534" row="0"/>
+      </file>
+      <file name="Adventurer.java" package="" timestamp="24-Feb-2016 11:42:22">
+        <select from="18729" to="18729"/>
+        <scroll column="7534" row="0"/>
+      </file>
+      <file name="Player.java" package="" timestamp="24-Feb-2016 11:43:18">
+        <select from="18729" to="18729"/>
+        <scroll column="7534" row="0"/>
+      </file>
+      <file name="Bug.java" package="" timestamp="24-Feb-2016 11:45:19">
+        <select from="18729" to="18729"/>
+        <scroll column="7534" row="0"/>
+      </file>
+      <file name="Enemy.java" package="" timestamp="24-Feb-2016 11:52:32">
+        <select from="18729" to="18729"/>
+        <scroll column="7534" row="0"/>
+      </file>
+      <file name="Item.java" package="" timestamp="24-Feb-2016 12:46:01">
+        <select from="18729" to="18729"/>
+        <scroll column="7534" row="0"/>
+      </file>
+      <file name="Mage.java" package="" timestamp="24-Feb-2016 12:47:10">
+        <select from="18729" to="18729"/>
+        <scroll column="7534" row="0"/>
+      </file>
+      <file name="Game.java" package="" timestamp="24-Feb-2016 12:51:10">
+        <select from="18729" to="18729"/>
+        <scroll column="7534" row="0"/>
+      </file>
+    </source>
+    <included/>
+    <excluded/>
+    <collapsed/>
+    <classpath/>
+    <breakpoints/>
+    <watches/>
+    <bookmarks/>
+    <preferences/>
+  </project>
+</drjava>

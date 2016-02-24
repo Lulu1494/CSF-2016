@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<drjava version="drjava-20140826-r5761">
+  <project autorefresh="false" main="" root="" work="">
+    <createjar file=""/>
+    <source>
+      <file active="true" name="StdDraw.java" package="" timestamp="22-Feb-2016 16:25:28">
+        <select from="18325" to="18325"/>
+        <scroll column="7554" row="0"/>
+      </file>
+      <file name="Vector2.java" package="" timestamp="22-Feb-2016 15:41:16">
+        <select from="18325" to="18325"/>
+        <scroll column="7554" row="0"/>
+      </file>
+      <file name="Entity.java" package="" timestamp="22-Feb-2016 15:57:30">
+        <select from="18325" to="18325"/>
+        <scroll column="7554" row="0"/>
+      </file>
+      <file name="Enemy.java" package="" timestamp="22-Feb-2016 17:21:19">
+        <select from="18325" to="18325"/>
+        <scroll column="7554" row="0"/>
+      </file>
+      <file name="Player.java" package="" timestamp="22-Feb-2016 17:29:11">
+        <select from="18325" to="18325"/>
+        <scroll column="7554" row="0"/>
+      </file>
+      <file name="Bullet.java" package="" timestamp="22-Feb-2016 17:38:26">
+        <select from="18325" to="18325"/>
+        <scroll column="7554" row="0"/>
+      </file>
+      <file name="StdAudio.java" package="" timestamp="22-Feb-2016 17:41:24">
+        <select from="18325" to="18325"/>
+        <scroll column="7554" row="0"/>
+      </file>
+      <file name="Game.java" package="" timestamp="22-Feb-2016 17:51:42">
+        <select from="18325" to="18325"/>
+        <scroll column="7554" row="0"/>
+      </file>
+      <file name="Shooter.java" package="" timestamp="22-Feb-2016 17:51:42">
+        <select from="18325" to="18325"/>
+        <scroll column="7554" row="0"/>
+      </file>
+    </source>
+    <included/>
+    <excluded/>
+    <collapsed/>
+    <classpath/>
+    <breakpoints/>
+    <watches/>
+    <bookmarks/>
+    <preferences/>
+  </project>
+</drjava>
