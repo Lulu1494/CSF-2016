@@ -1,7 +1,7 @@
 # CasualQuestJ
 Basic RPG combat demo using assets from [Casual Quest BYOND](http://www.byond.com/games/iainperegrine/casualquest).
 
-![](https://github.com/Lulu1494/CasualQuestJ/raw/master/2016-02-24_00-29-03.gif)
+![](https://github.com/Lulu1494/CSF-2016/raw/master/CasualQuestJ/2016-02-24_00-29-03.gif)
 
 ### Controls
 
