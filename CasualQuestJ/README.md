@@ -21,7 +21,7 @@ They blink and disappear after 10 seconds.
 * ![](https://github.com/Lulu1494/CSF-2016/raw/master/CasualQuestJ/rsc/items/gold1.png) Gold Coin: Adds 1 to your Gold count. Pretty much useless, though.
 * ![](https://github.com/Lulu1494/CSF-2016/raw/master/CasualQuestJ/rsc/items/bottle.png) Bottle: Fills your aura completely. 
 * ![](https://github.com/Lulu1494/CSF-2016/raw/master/CasualQuestJ/rsc/items/plum.png) Plum: Fills your health completely. 
-* ![](https://github.com/Lulu1494/CSF-2016/raw/master/CasualQuestJ/rsc/items/shield.png) Shield: Grants invincibility for 3 seconds. 
+* ![](https://github.com/Lulu1494/CSF-2016/raw/master/CasualQuestJ/rsc/items/shield.png) Shield: Grants invincibility for 5 seconds. 
 
 ### Classes 
 Press the number on your keyboard to change to it.
