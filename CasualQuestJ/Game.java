@@ -41,7 +41,7 @@ public class Game {
     
     public static long time;
     
-    public static int MAX_ENEMY_COUNT = 30;
+    public static int MAX_ENEMY_COUNT;
     public static int ENEMY_SPAWN_DELAY = 0;
 
     public static int KEY_RESET = java.awt.event.KeyEvent.VK_R;

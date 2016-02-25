@@ -73,30 +73,6 @@ public class Adventurer extends Player {
                     }
                 }
             }
-//            double angle = Game.dirToAngle(dir);
-//            double forwardX = Math.cos(angle);
-//            double forwardY = Math.sin(angle);
-//            double rightAngle = angle - Math.PI*.5;
-//            double rightX = Math.cos(rightAngle);
-//            double rightY = Math.sin(rightAngle);
-//            Rectangle swordRect = new Rectangle();
-//            double tipX = x + forwardX * swordTipDistance;
-//            double tipY = y + forwardY * swordTipDistance;
-//            for(Entity entity : Entity.all) {
-//                if(entity instanceof Enemy) {
-//                    if(entity.getRectangle().containsPoint(tipX, tipY)) {
-//                        Enemy enemy = (Enemy) entity;
-//                        enemy.knockback(this, 16);
-//                        enemy.takeDamage(attackDamage);
-//                    }
-//                }
-//                else if(entity instanceof Item) {
-//                    if(entity.getRectangle().containsPoint(tipX, tipY)) {
-//                        Item item = (Item) entity;
-//                        item.pickedUp();
-//                    }
-//                }
-//            }
         }
     }
 }

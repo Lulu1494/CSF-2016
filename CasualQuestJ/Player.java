@@ -3,7 +3,10 @@ import java.awt.event.KeyEvent;
 public abstract class Player extends LivingEntity {
     public int dir = Game.SOUTH;
     public double radius = 8;
+    
     public String icon;
+    public String attackIcon = "attack";
+    public String castIcon = "cast";
     
     public double moveSpeed; // pixels per second
     public double attackDamage; // damage per hit with the primary attack
@@ -36,7 +39,7 @@ public abstract class Player extends LivingEntity {
     private static final int[] keysTracked = {
         KEY_UP, KEY_DOWN, KEY_RIGHT, KEY_LEFT, 
         KEY_ATTACK, KEY_SKILL1, KEY_SKILL2, KEY_SKILL3, 
-        KeyEvent.VK_1, KeyEvent.VK_2, KeyEvent.VK_3
+        KeyEvent.VK_1, KeyEvent.VK_2, KeyEvent.VK_3, KeyEvent.VK_4, KeyEvent.VK_5
     };
     
     private boolean[] isKeyHeld = new boolean[keysTracked.length];
@@ -69,8 +72,8 @@ public abstract class Player extends LivingEntity {
     }
     
     public String getFullIcon() {
-        if(attacking) return "rsc/classes/" + icon + "/attack " + Game.dirToString(dir) + ".png";
-        else if(casting) return "rsc/classes/" + icon + "/cast " + Game.dirToString(dir) + ".png";
+        if(attacking && attackIcon != null) return "rsc/classes/" + icon + "/" + attackIcon + " " + Game.dirToString(dir) + ".png";
+        else if(casting && castIcon != null) return "rsc/classes/" + icon + "/" + castIcon + " " + Game.dirToString(dir) + ".png";
         else return "rsc/classes/" + icon + "/" + Game.dirToString(dir) + (1 + Game.time / 800 % 2) + ".png";
     }
     
@@ -118,6 +121,8 @@ public abstract class Player extends LivingEntity {
                 if(key == KeyEvent.VK_1) changeClass(new Adventurer());
                 else if(key == KeyEvent.VK_2) changeClass(new Knight());
                 else if(key == KeyEvent.VK_3) changeClass(new Mage());
+                else if(key == KeyEvent.VK_4) changeClass(new Archer());
+                else if(key == KeyEvent.VK_5) changeClass(new Acolyte());
             }
         }
     }
@@ -132,16 +137,28 @@ public abstract class Player extends LivingEntity {
     void attackEnd() { attacking = false; }
     
     void changeClass(Player newPlayer) {
+        destroy();
         Game.player = newPlayer;
         Game.player.moveTo(x, y);
         Game.player.dir = dir;
-        destroy();
     }
     
     public void cast(int time) {
         casting = true;
         castStartTime = Game.time;
         castDuration = time;
+    }
+    
+    Projectile launchProjectile(Projectile p) {
+        double angle = Game.dirToAngle(dir);
+        return launchProjectile(p, 11*Math.cos(angle), 11*Math.sin(angle), angle);
+    }
+    
+    Projectile launchProjectile(Projectile p, double offsetX, double offsetY, double angle) {
+        p.owner = this;
+        p.moveTo(x + offsetX, y + offsetY);
+        p.setAngle(angle);
+        return p;
     }
     
     void skill1() { }

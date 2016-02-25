@@ -12,9 +12,7 @@ public abstract class Entity {
     public void setLayer(double newLayer) {
         if(layers.containsKey(layer)) {
             layers.get(layer).remove(this);
-            if(layers.get(layer).isEmpty()) {
-                layers.remove(layer);
-            }
+            if(layers.get(layer).isEmpty()) layers.remove(layer);
         }
         layer = newLayer;
         if(!layers.containsKey(layer)) layers.put(layer, new HashSet<Entity>());
@@ -28,7 +26,6 @@ public abstract class Entity {
         }
         for(Entity e : all) {
             e.update();
-            if(!e.enabled) removedEntities.add(e);
         } 
         if(!removedEntities.isEmpty()) {
             all.removeAll(removedEntities);
@@ -52,7 +49,7 @@ public abstract class Entity {
         removedEntities.clear();
         layers.clear();
     }
-                                                            
+    
     public boolean enabled = true;
     public boolean visible = true;
     
@@ -64,7 +61,12 @@ public abstract class Entity {
         setLayer(0);
     }
     
-    public void destroy() { enabled = false; }
+    public void destroy() { 
+        enabled = false;
+        removedEntities.add(this);
+        layers.get(layer).remove(this);
+        if(layers.get(layer).isEmpty()) layers.remove(layer);
+    }
     
     public double x, y, vx, vy;
     
@@ -79,5 +81,9 @@ public abstract class Entity {
     public void moveTo(double nx, double ny) { x = nx; y = ny; }
     public void move(double dx, double dy) { moveTo(x + dx, y + dy); }
     
+    public double sqrDistanceTo(Entity other) {
+        double dx = other.x - x, dy = other.y - y;
+        return dx*dx + dy*dy;
+    }
     public double distanceTo(Entity other) { return Math.hypot(other.x - x, other.y - y); }
 }
