@@ -38,7 +38,7 @@ Press the number on your keyboard to change to it.
   * Primary: ![](rsc/weapons/fireball1.png) Fireball (mid-ranged, 1 damage, ranged)
   * Skill 1: ![](rsc/weapons/bigFire1.png) Big Fireball (long-ranged, 2 damage, 2 aura) 
   * Skill 2: ![](rsc/weapons/seeker1.png) Seeker (long-ranged, 2 damage, 3 aura) This magical orb chases nearby enemies.
-  * Skill 3: ![](rsc/weapons/bigFire1.png) Explosion (mid-ranged, 2 damage per fireball, 4 aura) Explosion magic is best magic. This launches 12 Big Fireballs all around you, but leaves you vulnerable afterwards. 
+  * Skill 3: ![](rsc/weapons/bigFire1.png) Explosion (mid-ranged, 2 damage per fireball, 4 aura) This launches 12 Big Fireballs all around you, but leaves you vulnerable afterwards. _Explosion magic is best magic._
 
 ### Enemies
 
