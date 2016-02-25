@@ -10,8 +10,9 @@ public abstract class Player extends LivingEntity {
     public double auraRegenRate; // aura regeneration per second
     public double healthRegenRate; // health regeneration per second
     
-    public boolean canMove = true;
-    public boolean attacking = false;
+    public boolean moveLocked = false;
+    boolean attacking = false;
+    boolean casting = false;
     
     public boolean isInvincible() { return invincibleUntil > Game.time; }
     private long invincibleUntil = 0;
@@ -40,9 +41,16 @@ public abstract class Player extends LivingEntity {
     
     private boolean[] isKeyHeld = new boolean[keysTracked.length];
     
+    double attackFrame;
+    
+    private long castStartTime;
+    private long castDuration;
+    public long castTime() { return casting ? Game.time - castStartTime : 0; }
+    
     public void update() {
         if(auraRegenRate != 0 && getAura() < getMaxAura()) addAura(auraRegenRate * Game.PER_TICK);
         if(healthRegenRate != 0 && getHealth() < getMaxHealth()) addHealth(healthRegenRate * Game.PER_TICK);
+        if(casting && castTime() > castDuration) casting = false;
         
         handleInput();
         if(attacking) attackUpdate(); 
@@ -56,46 +64,52 @@ public abstract class Player extends LivingEntity {
     
     public void draw() {
         if(isInvincible() && Game.time / 50 % 2 == 0) return;
-        
-        String fullIcon;
-        if(attacking) {
-            fullIcon = "rsc/" + icon + "/attack " + Game.dirToString(dir) + ".png";
-        }
-        else {
-            fullIcon = "rsc/" + icon + "/" 
-                + Game.dirToString(dir) 
-                + (1 + Game.time / 800 % 2) 
-                + ".png";
-        }
-        StdDraw.picture(x, y, fullIcon);
+        StdDraw.picture(x, y, getFullIcon());
         super.draw();
     }
     
+    public String getFullIcon() {
+        if(attacking) return "rsc/classes/" + icon + "/attack " + Game.dirToString(dir) + ".png";
+        else if(casting) return "rsc/classes/" + icon + "/cast " + Game.dirToString(dir) + ".png";
+        else return "rsc/classes/" + icon + "/" + Game.dirToString(dir) + (1 + Game.time / 800 % 2) + ".png";
+    }
+    
+    public boolean canMove() {
+        return !(moveLocked || attacking || casting);
+    }
+    
     private void handleInput() {
-        int inputX = canMove ? getAxis(KEY_RIGHT, KEY_LEFT) : 0;
-        int inputY = canMove ? getAxis(KEY_UP, KEY_DOWN) : 0;
+        boolean canMove = canMove();
         
-        if(inputX != 0 || inputY != 0) {
-            dir = 0;
-            if(inputX != 0) {
-                if(inputX > 0) dir |= Game.EAST;
-                else dir |= Game.WEST;
+        if(canMove) {
+            int inputX = getAxis(KEY_RIGHT, KEY_LEFT);
+            int inputY = getAxis(KEY_UP, KEY_DOWN);
+            
+            if(inputX != 0 || inputY != 0) {
+                dir = 0;
+                if(inputX != 0) {
+                    if(inputX > 0) dir |= Game.EAST;
+                    else dir |= Game.WEST;
+                }
+                else if(inputY != 0) {
+                    if(inputY > 0) dir |= Game.NORTH;
+                    else dir |= Game.SOUTH;
+                }
             }
-            else if(inputY != 0) {
-                if(inputY > 0) dir |= Game.NORTH;
-                else dir |= Game.SOUTH;
-            }
+            vx = inputX * moveSpeed;
+            vy = inputY * moveSpeed;
         }
-        
-        vx = inputX * moveSpeed;
-        vy = inputY * moveSpeed;
+        else {
+            vx = 0;
+            vy = 0;
+        }
         
         for(int i = 0; i < keysTracked.length; i++) {
             int key = keysTracked[i];
             if(!StdDraw.isKeyPressed(key)) isKeyHeld[i] = false;
             else if(!isKeyHeld[i]) {
                 isKeyHeld[i] = true;
-                if(!attacking && canMove) {
+                if(canMove) {
                     if(key == KEY_ATTACK) attack();
                     else if(key == KEY_SKILL1) skill1();
                     else if(key == KEY_SKILL2) skill2();
@@ -108,28 +122,26 @@ public abstract class Player extends LivingEntity {
         }
     }
     
-    double attackFrame;
-    
-    void attack() { 
+    void attack() {  
         attackFrame = 0;
         attacking = true; 
-        canMove = false;
     }
     
-    void attackUpdate() {
-        attackFrame += 60 / Game.FRAMES_PER_SECOND;
-    }
+    void attackUpdate() { attackFrame += 60 / Game.FRAMES_PER_SECOND; }
     
-    void attackEnd() {
-        attacking = false;
-        canMove = true;
-    }
+    void attackEnd() { attacking = false; }
     
     void changeClass(Player newPlayer) {
         Game.player = newPlayer;
         Game.player.moveTo(x, y);
         Game.player.dir = dir;
         destroy();
+    }
+    
+    public void cast(int time) {
+        casting = true;
+        castStartTime = Game.time;
+        castDuration = time;
     }
     
     void skill1() { }

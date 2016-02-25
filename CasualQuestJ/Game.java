@@ -16,7 +16,10 @@ import java.awt.Color;
 import java.awt.Font;
 
 public class Game {
-    public static void main(String[] args) { startGame(); }
+    public static void main(String[] args) { 
+        setupWindow(WIDTH, HEIGHT);
+        while(true) startGame(); 
+    }
     
     
     public static final int 
@@ -51,12 +54,16 @@ public class Game {
     private static long lastDrawTime;
     
     public static void startGame() {
-        setupWindow(WIDTH, HEIGHT);
         showTitleScreen();
+        System.out.println("Start");
         Entity.resetEntities();
+        Enemy.enemyCount = 0;
+        Enemy.enemiesKilled = 0;
         populateMap();
         initializePlayer();
         time = 0;
+        lastUpdateTime = 0;
+        lastDrawTime = 0;
         running = true;
         long nextRandomEnemyTime = 0;
         long startTime = System.currentTimeMillis();
@@ -79,10 +86,14 @@ public class Game {
                 
                     StdDraw.setFont(new Font("Arial", Font.BOLD, 12));
                     StdDraw.setPenColor(Color.WHITE);
-                    StdDraw.textLeft(0, 6, "Gold: " + GoldCoin.collected);
-//                    StdDraw.textLeft(0, 20, "Enemies: " + MAX_ENEMY_COUNT);
+                    StdDraw.textLeft(2, 6, GoldCoin.collected + "g, " + Enemy.enemiesKilled + " kill" + (Enemy.enemiesKilled == 1 ? "" : "s"));
                 }
             }
+            
+            time = System.currentTimeMillis() - startTime;
+            MAX_ENEMY_COUNT = (int) (Math.pow(time / 3000.0, 1.1));
+            
+            StdDraw.show(1);
             
             if(!StdDraw.isKeyPressed(KEY_PAUSE)) pausing = false;
             else if(!pausing) {
@@ -93,43 +104,25 @@ public class Game {
             
             if(StdDraw.isKeyPressed(KEY_RESET)) {
                 running = false;
-                while(StdDraw.isKeyPressed(KEY_RESET));
+                while(StdDraw.isKeyPressed(KEY_RESET)) StdDraw.show(1);
             }
-            
-            time = System.currentTimeMillis() - startTime;
-            MAX_ENEMY_COUNT = (int) (Math.pow(time / 3000.0, 1.1));
-            StdDraw.show(1);
         }
-        startGame();
     }
     
     public static void showTitleScreen() {
         StdDraw.picture(120, 120, "rsc/title.png");
         StdDraw.show();
-        while(!StdDraw.isKeyPressed(' '));
+        while(!StdDraw.isKeyPressed(java.awt.event.KeyEvent.VK_SPACE));
     }
     
     public static void populateMap() {
         int maxX = WIDTH / 16 - 2, maxY = HEIGHT / 16 - 2;
         for(int x = 2; x < maxX; x += 2) for(int y = 2; y < maxY; y += 2) {
-            if(prob(75)) {
+            if(prob(50)) {
                 Tree tree = new Tree();
                 tree.moveTo(x*16 + randn(0, 16), y*16 + randn(0, 16));
             }
         }
-//        for(int i = 0; i < 15; i++) {
-//            Tree tree = new Tree();
-//            tree.moveTo(randn(16, WIDTH-16), randn(16, HEIGHT-16));
-//            
-//            int n = rand.nextInt(5);
-//            for(int j = 0; j < n; j++) {
-//                Tree t = new Tree();
-//                double dist = randn(16, 48);
-//                double angle = randn(0, 360);
-//                t.moveTo(tree.x + dist * Math.cos(angle),
-//                         tree.y + dist * Math.sin(angle));
-//            }
-//        }
     }
     
     public static Enemy spawnEnemy(Enemy enemy) {
@@ -145,8 +138,8 @@ public class Game {
     public static void spawnRandomEnemy() {
         if(prob(95)) {
             Bug bug = (Bug) spawnEnemy(new Bug());
-            if(prob(100/3.0)) bug.setType(Bug.Type.BASIC);
-            else if(prob(50)) bug.setType(Bug.Type.MEDIUM);
+            if(prob(75)) bug.setType(Bug.Type.BASIC);
+            else if(prob(75)) bug.setType(Bug.Type.MEDIUM);
             else bug.setType(Bug.Type.STRONG);
         }
         else spawnEnemy(new Bird());
@@ -161,7 +154,7 @@ public class Game {
     public static void pause() {
         paused = true;
         StdDraw.clear(new Color(0, 0, 0, 128));
-        StdDraw.setFont(new Font("Consolas", Font.BOLD, 50));
+        StdDraw.setFont(new Font("Consolas", Font.BOLD, 20));
         StdDraw.setPenColor(Color.WHITE);
         StdDraw.text(WIDTH*.5, HEIGHT*.5, "paused (p)");
         StdDraw.show();
@@ -175,14 +168,12 @@ public class Game {
     public static double clamp(double n, double min, double max) { return Math.min(Math.max(n, min), max); }
     
     public static void setupWindow(int width, int height) {
+        // automatically use the largest possible size
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        StdDraw.zoom = Math.min(screenSize.width, screenSize.height) / Math.max(width, height);
+        StdDraw.zoom = (int) Math.floor(Math.min(screenSize.width, screenSize.height) / Math.max(width, height));
         StdDraw.setCanvasSize(width, height);
         StdDraw.setXscale(0, width);
         StdDraw.setYscale(0, height);
-        
-//        StdDraw.setXscale(width  * .05 / 1.1, width  * 1.05 / 1.1);
-//        StdDraw.setYscale(height * .05 / 1.1, height * 1.05 / 1.1);
     }
     
     private static final double[][] arrowPolygon = {

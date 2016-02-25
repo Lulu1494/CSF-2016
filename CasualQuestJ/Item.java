@@ -9,6 +9,10 @@ public abstract class Item extends Entity {
         setLayer(1);
     }
     
+    public Rectangle getRectangle() {
+        return new Rectangle(x - 4, y - 4, x + 4, y + 4);
+    }
+    
     public void update() { 
         Rectangle rect = getRectangle();
         if(rect.intersects(Game.player.getRectangle())) {

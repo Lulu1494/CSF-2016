@@ -5,13 +5,15 @@ public class Projectile extends Entity {
     public double angle;
     public double damage;
     public String icon;
+    public int iconFrames = 2;
+    public int iconDelay = 400;
     public int lifetime;
     
     private long startTime;
     
     public void draw() { 
-        String fullIcon = "rsc/weapons/"+icon+"1.png";
-        if(Game.time / 200 % 2 == 0) fullIcon = "rsc/weapons/"+icon+"2.png";
+        int frame = 1 + (int) (Game.time / iconDelay % iconFrames);
+        String fullIcon = "rsc/weapons/" + icon + frame + ".png";
         StdDraw.picture((int) x, (int) y, fullIcon, Math.toDegrees(angle)); 
     }
     
@@ -23,11 +25,13 @@ public class Projectile extends Entity {
     
     void defaultStats() { }
     
-    public void setDir(int dir) {
-        angle = Game.dirToAngle(dir);
+    public void setAngle(double a) {
+        angle = a;
         vx = moveSpeed * Math.cos(angle);
         vy = moveSpeed * Math.sin(angle);
     }
+    
+    public void setDir(int dir) { setAngle(Game.dirToAngle(dir)); }
     
     public void update() {
         super.update();

@@ -1,5 +1,6 @@
 public class Enemy extends LivingEntity {
     public static int enemyCount = 0;
+    public static int enemiesKilled = 0;
     
     public String iconName;
     public double contactDamage;
@@ -15,15 +16,18 @@ public class Enemy extends LivingEntity {
     
     public void destroy() {
         enemyCount--;
+        enemiesKilled++;
         super.destroy();
     }
     
     public void die() {
-        if(Game.prob(50)) new GoldCoin().moveTo(x, y);
-        else if(Game.prob(50)) new Cherry().moveTo(x, y);
-        else if(Game.prob(50)) new Bottle().moveTo(x, y);
-        else if(Game.prob(50)) new Plum().moveTo(x, y);
-        else if(Game.prob(50)) new Shield().moveTo(x, y);
+        if(Game.prob(50)) { // 50% chance of getting nothing
+            if(Game.prob(50)) new GoldCoin().moveTo(x, y); // 25%
+            else if(Game.prob(50)) new Cherry().moveTo(x, y);   // 12.5%
+            else if(Game.prob(50)) new Bottle().moveTo(x, y);   // 6.25%
+            else if(Game.prob(50)) new Plum().moveTo(x, y);     // 3.125%
+            else if(Game.prob(50)) new Shield().moveTo(x, y);   // 1.5625%
+        }
         super.die();
     }
     

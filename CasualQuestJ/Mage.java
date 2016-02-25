@@ -8,10 +8,8 @@ public class Mage extends Player {
     }
     
     void attack() {
-        if(spendAura(1)) {
-            super.attack();
-            launchProjectile(new Fireball());
-        }
+        cast(200);
+        launchProjectile(new Fireball());
     }
     
     void attackUpdate() {
@@ -21,8 +19,30 @@ public class Mage extends Player {
     
     void skill1() {
         if(spendAura(2)) {
-            super.attack();
+            cast(300);
             launchProjectile(new BigFireball());
+        }
+    }
+    
+    void skill2() {
+        if(spendAura(3)) {
+            cast(200);
+            launchProjectile(new Seeker());
+        }
+    }
+    
+    void skill3() {
+        if(spendAura(4)) {
+            cast(600);
+            int balls = 12;
+            for(int i = 0; i < balls; i++) {
+                double angle = Math.toRadians(i*360/balls);
+                BigFireball f = new BigFireball();
+                f.moveTo(x + 6*Math.cos(angle), y + 6*Math.sin(angle));
+                f.lifetime = 500;
+                f.moveSpeed = 96;
+                f.setAngle(angle);
+            }
         }
     }
     
@@ -48,13 +68,53 @@ public class Mage extends Player {
         void defaultStats() {
             icon = "fireball";
             moveSpeed = 128;
-            lifetime = 700;
+            lifetime = 500;
             damage = 1; 
             setLayer(4);
         }
         
         public Rectangle getRectangle() { 
             return new Rectangle(x-3, y-3, x+3, y+3); 
+        }
+    }
+    
+    public class Seeker extends Projectile {
+        void defaultStats() {
+            icon = "seeker";
+            iconFrames = 4;
+            iconDelay = 400;
+            moveSpeed = 64;
+            lifetime = 6000;
+            damage = 2;
+            setLayer(4);
+        }
+        
+        public Rectangle getRectangle() { 
+            return new Rectangle(x-3, y-3, x+3, y+3); 
+        }
+        
+        public void update() {
+            Entity closestEnemy = null;
+            double distance = 0;
+            for(Entity e : Entity.all) {
+                if(e instanceof Enemy) {
+                    double d = distanceTo(e);
+                    if(closestEnemy == null || d < distance) {
+                        closestEnemy = e;
+                        distance = d;
+                    }
+                }
+            }
+            if(closestEnemy != null) {
+                double accel = Game.TICKS_PER_SECOND;
+                double dx = closestEnemy.x - x;
+                double dy = closestEnemy.y - y;
+                if(vx <  moveSpeed && dx >  2) vx += accel;
+                if(vx > -moveSpeed && dx < -2) vx -= accel;
+                if(vy <  moveSpeed && dy >  2) vy += accel;
+                if(vy > -moveSpeed && dy < -2) vy -= accel;
+            }
+            super.update();
         }
     }
 }

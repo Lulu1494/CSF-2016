@@ -51,26 +51,52 @@ public class Adventurer extends Player {
             swordTipDistance += radius;
             fullSwordIcon = "rsc/weapons/" + swordIcon + swordFrame + ".png";
 
-            double angle = Game.dirToAngle(dir);
-            double cos = Math.cos(angle);
-            double sin = Math.sin(angle);
-            double tipX = x + cos * swordTipDistance;
-            double tipY = y + sin * swordTipDistance;
+            Rectangle swordRect = null;
+            switch(dir) {
+                case Game.NORTH: swordRect = new Rectangle(x - 2, y + 8, x + 2, y + swordTipDistance); break;
+                case Game.SOUTH: swordRect = new Rectangle(x - 2, y - swordTipDistance, x + 2, y - 8); break;
+                case Game.EAST:  swordRect = new Rectangle(x + 8, y - 2, x + swordTipDistance, y + 2); break;
+                case Game.WEST:  swordRect = new Rectangle(x - swordTipDistance, y - 2, x - 8, y + 2); break;
+            }
             for(Entity entity : Entity.all) {
                 if(entity instanceof Enemy) {
-                    if(entity.getRectangle().containsPoint(tipX, tipY)) {
+                    if(entity.getRectangle().intersects(swordRect)) {
                         Enemy enemy = (Enemy) entity;
                         enemy.knockback(this, 16);
                         enemy.takeDamage(attackDamage);
                     }
                 }
                 else if(entity instanceof Item) {
-                    if(entity.getRectangle().containsPoint(tipX, tipY)) {
+                    if(entity.getRectangle().intersects(swordRect)) {
                         Item item = (Item) entity;
                         item.pickedUp();
                     }
                 }
             }
+//            double angle = Game.dirToAngle(dir);
+//            double forwardX = Math.cos(angle);
+//            double forwardY = Math.sin(angle);
+//            double rightAngle = angle - Math.PI*.5;
+//            double rightX = Math.cos(rightAngle);
+//            double rightY = Math.sin(rightAngle);
+//            Rectangle swordRect = new Rectangle();
+//            double tipX = x + forwardX * swordTipDistance;
+//            double tipY = y + forwardY * swordTipDistance;
+//            for(Entity entity : Entity.all) {
+//                if(entity instanceof Enemy) {
+//                    if(entity.getRectangle().containsPoint(tipX, tipY)) {
+//                        Enemy enemy = (Enemy) entity;
+//                        enemy.knockback(this, 16);
+//                        enemy.takeDamage(attackDamage);
+//                    }
+//                }
+//                else if(entity instanceof Item) {
+//                    if(entity.getRectangle().containsPoint(tipX, tipY)) {
+//                        Item item = (Item) entity;
+//                        item.pickedUp();
+//                    }
+//                }
+//            }
         }
     }
 }
