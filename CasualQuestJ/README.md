@@ -35,7 +35,7 @@ Press the number on your keyboard to change to it.
 3. ![](rsc/classes/mage/east1.png) Mage 
   * Health: 4
   * Aura: 4 (regen: 1 aura per second)
-  * Primary: ![](rsc/weapons/fireball1.png) Fireball (mid-ranged, 1 damage, ranged)
+  * Primary: ![](rsc/weapons/fireball1.png) Fireball (mid-ranged, 1 damage)
   * Skill 1: ![](rsc/weapons/bigFire1.png) Big Fireball (long-ranged, 2 damage, 2 aura) 
   * Skill 2: ![](rsc/weapons/seeker1.png) Seeker (long-ranged, 2 damage, 3 aura) This magical orb chases nearby enemies.
   * Skill 3: ![](rsc/weapons/bigFire1.png) Explosion (mid-ranged, 2 damage per fireball, 4 aura) This launches 12 Big Fireballs all around you, but leaves you vulnerable afterwards. _Explosion magic is best magic._
