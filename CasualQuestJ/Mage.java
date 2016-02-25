@@ -33,7 +33,7 @@ public class Mage extends Player {
     
     void skill3() {
         if(spendAura(4)) {
-            cast(600);
+            cast(3000);
             int balls = 12;
             for(int i = 0; i < balls; i++) {
                 double angle = Math.toRadians(i*360/balls);
