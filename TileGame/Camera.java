@@ -1,10 +1,16 @@
 public class Camera {
     private static double x, y;
+    public static Rectangle rect;
     
     public static double getX() { return x; }
     public static double getY() { return y; }
     
+    public static boolean containsRect(Rectangle r) {
+        return rect.intersects(r);
+    }
+    
     public static void moveTo(double x, double y) {
+        rect.translate(x - Camera.x, y - Camera.y);
         Camera.x = x;
         Camera.y = y;
     }
@@ -50,9 +56,11 @@ public class Camera {
     public static void setSize(int width, int height, double zoom) {
         Camera.width = width;
         Camera.height = height;
-        Camera.halfWidth = width / 2;
-        Camera.halfHeight = height / 2;
+        halfWidth = width / 2;
+        halfHeight = height / 2;
         Camera.zoom = zoom;
+        Camera.rect = new Rectangle(-halfWidth, -halfHeight, halfWidth, halfHeight);
+        rect.translate(x, y);
         StdDraw.setCanvasSize(width, height, zoom);
         StdDraw.setXscale(0, width);
         StdDraw.setYscale(0, height);
