@@ -23,7 +23,7 @@ public class Archer extends Player {
         void defaultStats() {
             icon = "arrow";
             iconFrames = 0;
-            moveSpeed = 128;
+            moveSpeed = 256;
             lifetime = 6000;
             damage = 1;
         }

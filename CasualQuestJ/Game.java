@@ -21,6 +21,8 @@ public class Game {
         while(true) startGame(); 
     }
     
+    public static ZoomOptions zoom = ZoomOptions.TRIPLE;
+    public enum ZoomOptions { NATIVE, DOUBLE, TRIPLE, FIT }
     
     public static final int 
         NORTH = 1, SOUTH = 2, EAST = 4, WEST = 8, 
@@ -55,7 +57,6 @@ public class Game {
     
     public static void startGame() {
         showTitleScreen();
-        System.out.println("Start");
         Entity.resetEntities();
         Enemy.enemyCount = 0;
         Enemy.enemiesKilled = 0;
@@ -86,7 +87,7 @@ public class Game {
                 
                     StdDraw.setFont(new Font("Arial", Font.BOLD, 12));
                     StdDraw.setPenColor(Color.WHITE);
-                    StdDraw.textLeft(2, 6, GoldCoin.collected + "g, " + Enemy.enemiesKilled + " kill" + (Enemy.enemiesKilled == 1 ? "" : "s"));
+                    StdDraw.textLeft(2, HEIGHT - 10, GoldCoin.collected + "g, " + Enemy.enemiesKilled + " kill" + (Enemy.enemiesKilled == 1 ? "" : "s"));
                 }
             }
             
@@ -168,9 +169,16 @@ public class Game {
     public static double clamp(double n, double min, double max) { return Math.min(Math.max(n, min), max); }
     
     public static void setupWindow(int width, int height) {
-        // automatically use the largest possible size
-        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        StdDraw.zoom = (int) Math.floor(Math.min(screenSize.width, screenSize.height) / Math.max(width, height));
+        switch(zoom) {
+            case FIT:
+                // automatically use the largest possible size
+                java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+                StdDraw.zoom = (int) Math.floor(Math.min(screenSize.width, screenSize.height - 32) / Math.max(width, height));
+                break;
+            case NATIVE: StdDraw.zoom = 1; break;
+            case DOUBLE: StdDraw.zoom = 2; break;
+            case TRIPLE: StdDraw.zoom = 3; break;
+        }
         StdDraw.setCanvasSize(width, height);
         StdDraw.setXscale(0, width);
         StdDraw.setYscale(0, height);

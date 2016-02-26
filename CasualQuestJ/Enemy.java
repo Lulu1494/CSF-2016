@@ -32,7 +32,7 @@ public class Enemy extends LivingEntity {
     }
     
     public void update() {        
-        if(!Game.player.isInvincible() && getRectangle().intersects(Game.player.getRectangle())) {
+        if(Game.player.enabled && !Game.player.isInvincible() && getRectangle().intersects(Game.player.getRectangle())) {
             Game.player.takeDamage(contactDamage);
             Game.player.knockback(this, 16);
         }

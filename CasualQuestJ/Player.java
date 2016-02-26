@@ -26,6 +26,17 @@ public abstract class Player extends LivingEntity {
         invincibility(1000);
     }
     
+    public void die() {
+        new Tombstone().moveTo(x, y);
+        super.die();
+    }
+    
+    public class Tombstone extends Entity {
+        public void draw() {
+            StdDraw.picture(x, y, "rsc/tomb.png");
+        }
+    }
+    
     private static int 
         KEY_UP = KeyEvent.VK_UP,
         KEY_DOWN = KeyEvent.VK_DOWN,
