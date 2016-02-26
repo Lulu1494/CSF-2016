@@ -6,8 +6,6 @@ public class Tilemap {
     public final String[] mapString;
     public final Tile[] grid;
     
-    public final double startX, startY;
-    
     public Tilemap(int tileWidth, int tileHeight, java.util.Map<String, Tile> mapKey, String[] mapString) {
         this.tileWidth = tileWidth;
         this.tileHeight = tileHeight;
@@ -24,16 +22,12 @@ public class Tilemap {
         for(int x = 0; x < tileMapWidth; x++) {
             int pos = x * 2, afterPos = pos + 2;
             for(int y = 0; y < tileMapHeight; y++) {
-                Tile tile = mapKey.get(mapString[tileMapHeight - 1 - y].substring(pos, afterPos));
+                String tileID = mapString[tileMapHeight - 1 - y].substring(pos, afterPos);
+                Tile tile = mapKey.get(tileID);
+                if(tile == null) System.out.println("Unrecognized tile ID (" + tileID + ").");
                 setTile(x, y, tile);
-                if(tile instanceof Tile.Start) {
-                    startX = x;
-                    startY = y;
-                }
             }
         }
-        this.startX = startX;
-        this.startY = startY;
     }
     
     public int coordToIndex(int x, int y) {
