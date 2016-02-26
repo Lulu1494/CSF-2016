@@ -1,7 +1,7 @@
 ### TileGame
 Tile-based map with movable camera. 
 
-![](https://github.com/Lulu1494/CSF-2016/raw/master/TileGame/2016-02-26_02-09-41.gif)
+![](https://github.com/Lulu1494/CSF-2016/raw/master/TileGame/2016-02-26_10-45-33.gif)
 
 Tiles can be drawn using images or just as a solid color rectangle. 
 
