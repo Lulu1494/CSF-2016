@@ -25,7 +25,8 @@ public abstract class Entity {
             newEntities.clear();
         }
         for(Entity e : all) {
-            e.update();
+            if(e.enabled) e.update();
+            if(!e.enabled) removedEntities.add(e);
         } 
         if(!removedEntities.isEmpty()) {
             all.removeAll(removedEntities);
@@ -65,8 +66,9 @@ public abstract class Entity {
         enabled = false;
         removedEntities.add(this);
         if(layers.containsKey(layer)) {
-            layers.get(layer).remove(this);
-            if(layers.get(layer).isEmpty()) layers.remove(layer);
+            HashSet<Entity> layerEntities = layers.get(layer);
+            layerEntities.remove(this);
+            if(layerEntities.isEmpty()) layers.remove(layer);
         }
     }
     
