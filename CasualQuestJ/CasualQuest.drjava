@@ -3,97 +3,97 @@
   <project autorefresh="false" build="" main="Game" manifest="" root="" work="">
     <createjar file="CasualQuest.jar" flags="12"/>
     <source>
-      <file active="true" name="Player.java" package="" timestamp="24-Feb-2016 23:08:06">
-        <select from="4973" to="4973"/>
-        <scroll column="1823" row="0"/>
+      <file active="true" name="Game.java" package="" timestamp="25-Feb-2016 20:58:15">
+        <select from="3406" to="3406"/>
+        <scroll column="1166" row="0"/>
+      </file>
+      <file name="Player.java" package="" timestamp="25-Feb-2016 00:00:37">
+        <select from="3406" to="3406"/>
+        <scroll column="1166" row="0"/>
       </file>
       <file name="StatBar.java" package="" timestamp="24-Feb-2016 12:43:20">
-        <select from="4973" to="4973"/>
-        <scroll column="1823" row="0"/>
+        <select from="3406" to="3406"/>
+        <scroll column="1166" row="0"/>
       </file>
       <file name="Rectangle.java" package="" timestamp="24-Feb-2016 12:43:20">
-        <select from="4973" to="4973"/>
-        <scroll column="1823" row="0"/>
+        <select from="3406" to="3406"/>
+        <scroll column="1166" row="0"/>
       </file>
       <file name="Knight.java" package="" timestamp="24-Feb-2016 12:43:20">
-        <select from="4973" to="4973"/>
-        <scroll column="1823" row="0"/>
+        <select from="3406" to="3406"/>
+        <scroll column="1166" row="0"/>
       </file>
       <file name="GoldCoin.java" package="" timestamp="24-Feb-2016 12:43:20">
-        <select from="4973" to="4973"/>
-        <scroll column="1823" row="0"/>
+        <select from="3406" to="3406"/>
+        <scroll column="1166" row="0"/>
       </file>
       <file name="Plum.java" package="" timestamp="24-Feb-2016 12:43:20">
-        <select from="4973" to="4973"/>
-        <scroll column="1823" row="0"/>
+        <select from="3406" to="3406"/>
+        <scroll column="1166" row="0"/>
       </file>
       <file name="Cherry.java" package="" timestamp="24-Feb-2016 12:43:20">
-        <select from="4973" to="4973"/>
-        <scroll column="1823" row="0"/>
+        <select from="3406" to="3406"/>
+        <scroll column="1166" row="0"/>
       </file>
       <file name="Bug.java" package="" timestamp="24-Feb-2016 12:54:49">
-        <select from="4973" to="4973"/>
-        <scroll column="1823" row="0"/>
+        <select from="3406" to="3406"/>
+        <scroll column="1166" row="0"/>
       </file>
       <file name="StdDraw.java" package="" timestamp="24-Feb-2016 15:28:38">
-        <select from="4973" to="4973"/>
-        <scroll column="1823" row="0"/>
+        <select from="3406" to="3406"/>
+        <scroll column="1166" row="0"/>
       </file>
       <file name="Bird.java" package="" timestamp="24-Feb-2016 15:28:38">
-        <select from="4973" to="4973"/>
-        <scroll column="1823" row="0"/>
+        <select from="3406" to="3406"/>
+        <scroll column="1166" row="0"/>
       </file>
       <file name="LivingEntity.java" package="" timestamp="24-Feb-2016 15:28:38">
-        <select from="4973" to="4973"/>
-        <scroll column="1823" row="0"/>
+        <select from="3406" to="3406"/>
+        <scroll column="1166" row="0"/>
       </file>
       <file name="Tree.java" package="" timestamp="24-Feb-2016 15:28:38">
-        <select from="4973" to="4973"/>
-        <scroll column="1823" row="0"/>
+        <select from="3406" to="3406"/>
+        <scroll column="1166" row="0"/>
       </file>
       <file name="Bottle.java" package="" timestamp="24-Feb-2016 15:08:33">
-        <select from="4973" to="4973"/>
-        <scroll column="1823" row="0"/>
+        <select from="3406" to="3406"/>
+        <scroll column="1166" row="0"/>
       </file>
       <file name="Shield.java" package="" timestamp="24-Feb-2016 15:28:38">
-        <select from="4973" to="4973"/>
-        <scroll column="1823" row="0"/>
+        <select from="3406" to="3406"/>
+        <scroll column="1166" row="0"/>
       </file>
       <file name="Item.java" package="" timestamp="24-Feb-2016 17:40:23">
-        <select from="4973" to="4973"/>
-        <scroll column="1823" row="0"/>
+        <select from="3406" to="3406"/>
+        <scroll column="1166" row="0"/>
       </file>
       <file name="Enemy.java" package="" timestamp="24-Feb-2016 19:10:45">
-        <select from="4973" to="4973"/>
-        <scroll column="1823" row="0"/>
+        <select from="3406" to="3406"/>
+        <scroll column="1166" row="0"/>
       </file>
-      <file name="Game.java" package="" timestamp="24-Feb-2016 22:41:45">
-        <select from="4973" to="4973"/>
-        <scroll column="1823" row="0"/>
+      <file name="Adventurer.java" package="" timestamp="25-Feb-2016 00:00:37">
+        <select from="3406" to="3406"/>
+        <scroll column="1166" row="0"/>
       </file>
-      <file name="Adventurer.java" package="" timestamp="24-Feb-2016 22:59:21">
-        <select from="4973" to="4973"/>
-        <scroll column="1823" row="0"/>
+      <file name="Projectile.java" package="" timestamp="25-Feb-2016 00:00:37">
+        <select from="3406" to="3406"/>
+        <scroll column="1166" row="0"/>
       </file>
-      <file name="Projectile.java" package="" timestamp="24-Feb-2016 23:25:28">
-        <select from="4973" to="4973"/>
-        <scroll column="1823" row="0"/>
+      <file name="Archer.java" package="" timestamp="25-Feb-2016 00:00:37">
+        <select from="3406" to="3406"/>
+        <scroll column="1166" row="0"/>
       </file>
-      <file name="Archer.java" package="" timestamp="24-Feb-2016 23:30:01">
-        <select from="4973" to="4973"/>
-        <scroll column="1823" row="0"/>
+      <file name="Acolyte.java" package="" timestamp="25-Feb-2016 00:00:37">
+        <select from="3406" to="3406"/>
+        <scroll column="1166" row="0"/>
       </file>
-      <file name="Acolyte.java" package="" timestamp="24-Feb-2016 23:34:31">
-        <select from="4973" to="4973"/>
-        <scroll column="1823" row="0"/>
+      <file name="Mage.java" package="" timestamp="25-Feb-2016 00:00:37">
+        <select from="3406" to="3406"/>
+        <scroll column="1166" row="0"/>
       </file>
-      <file name="Mage.java" package="" timestamp="24-Feb-2016 23:51:27">
-        <select from="4973" to="4973"/>
-        <scroll column="1823" row="0"/>
-      </file>
-      <file name="Entity.java" package="" timestamp="24-Feb-2016 23:58:41">
-        <select from="4973" to="4973"/>
-        <scroll column="1823" row="0"/>
+      <file name="Entity.java" package="" timestamp="25-Feb-2016 20:54:37">
+        <select from="3406" to="3406"/>
+        <scroll column="1166" row="0"/>
       </file>
     </source>
     <included/>

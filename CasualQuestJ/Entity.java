@@ -64,8 +64,10 @@ public abstract class Entity {
     public void destroy() { 
         enabled = false;
         removedEntities.add(this);
-        layers.get(layer).remove(this);
-        if(layers.get(layer).isEmpty()) layers.remove(layer);
+        if(layers.containsKey(layer)) {
+            layers.get(layer).remove(this);
+            if(layers.get(layer).isEmpty()) layers.remove(layer);
+        }
     }
     
     public double x, y, vx, vy;
