@@ -9,20 +9,28 @@ public class TileGame {
     public static long drawnTiles;
     public static long drawTime;
     
+    private static boolean running = false;
+    private static boolean resetting = false;
     public static void main(String[] args) {
         Camera.setSize(240, 240, 3);
         Maps.load();
-        while(start());
+        do start(); while(resetting);
     }
     
-    public static boolean start() {
+    public static void start() {
         Maps.pickRandomMap();
-        Camera.setPosition(tilemap.pixelMapWidth/2, tilemap.pixelMapHeight/2);
+        Camera.moveTo(tilemap.pixelMapWidth/2, tilemap.pixelMapHeight/2);
         StdDraw.show(0);
-        startTime = System.currentTimeMillis();
+        
         double moveSpeed = 2;
-        while(true) {
+        
+        startTime = System.currentTimeMillis();
+        running = true;
+        while(running) {
             time = System.currentTimeMillis() - startTime;
+            
+            Camera.move(moveSpeed * Input.getAxis(java.awt.event.KeyEvent.VK_RIGHT, java.awt.event.KeyEvent.VK_LEFT),
+                        moveSpeed * Input.getAxis(java.awt.event.KeyEvent.VK_UP, java.awt.event.KeyEvent.VK_DOWN));
             
             StdDraw.clear(StdDraw.BLACK);
             drawnTiles = 0;
@@ -30,12 +38,13 @@ public class TileGame {
             tilemap.draw();
             long drawEnd = System.nanoTime();
             drawTime = drawEnd - drawStart;
-//            HUD.draw();
+            HUD.draw();
             StdDraw.show(17);
             
-            if(StdDraw.isKeyPressed(java.awt.event.KeyEvent.VK_R)) {
-                while(StdDraw.isKeyPressed(java.awt.event.KeyEvent.VK_R));
-                return true;
+            if(!StdDraw.isKeyPressed(java.awt.event.KeyEvent.VK_R)) resetting = false;
+            else if(!resetting) {
+                resetting = true;
+                Maps.pickRandomMap();
             }
         }
     }

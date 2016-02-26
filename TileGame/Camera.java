@@ -4,9 +4,13 @@ public class Camera {
     public static double getX() { return x; }
     public static double getY() { return y; }
     
-    public static void setPosition(double x, double y) {
+    public static void moveTo(double x, double y) {
         Camera.x = x;
         Camera.y = y;
+    }
+    
+    public static void move(double dx, double dy) {
+        moveTo(x + dx, y + dy);
     }
     
     public static double worldToScreenX(double x) {
