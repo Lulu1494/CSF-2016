@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<drjava version="drjava-20140826-r5761">
+  <project autorefresh="false" main="TileGame" root="" work="">
+    <createjar file=""/>
+    <source>
+      <file active="true" name="TileGame.java" package="" timestamp="26-Feb-2016 02:01:01">
+        <select from="2585" to="2585"/>
+        <scroll column="0" row="0"/>
+      </file>
+      <file name="StdDraw.java" package="" timestamp="26-Feb-2016 00:26:38">
+        <select from="2585" to="2585"/>
+        <scroll column="0" row="0"/>
+      </file>
+      <file name="Camera.java" package="" timestamp="26-Feb-2016 01:16:46">
+        <select from="2585" to="2585"/>
+        <scroll column="0" row="0"/>
+      </file>
+      <file name="Input.java" package="" timestamp="26-Feb-2016 01:20:39">
+        <select from="2585" to="2585"/>
+        <scroll column="0" row="0"/>
+      </file>
+      <file name="Tilemap.java" package="" timestamp="26-Feb-2016 01:56:27">
+        <select from="2585" to="2585"/>
+        <scroll column="0" row="0"/>
+      </file>
+      <file name="Tile.java" package="" timestamp="26-Feb-2016 02:00:21">
+        <select from="2585" to="2585"/>
+        <scroll column="0" row="0"/>
+      </file>
+    </source>
+    <included/>
+    <excluded/>
+    <collapsed/>
+    <classpath/>
+    <breakpoints/>
+    <watches/>
+    <bookmarks/>
+    <preferences/>
+  </project>
+</drjava>
